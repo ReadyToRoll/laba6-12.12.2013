@@ -51,6 +51,7 @@ namespace laba6 {
 	private: System::Windows::Forms::Label^  label6;
 	private: System::Windows::Forms::Label^  label7;
 	private: System::Windows::Forms::Label^  label8;
+	private: System::Windows::Forms::Button^  button3;
 
 	private:
 		/// <summary>
@@ -78,6 +79,7 @@ namespace laba6 {
 			this->label6 = (gcnew System::Windows::Forms::Label());
 			this->label7 = (gcnew System::Windows::Forms::Label());
 			this->label8 = (gcnew System::Windows::Forms::Label());
+			this->button3 = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// textBox1
@@ -100,7 +102,7 @@ namespace laba6 {
 			// 
 			// button1
 			// 
-			this->button1->Location = System::Drawing::Point(121, 72);
+			this->button1->Location = System::Drawing::Point(121, 25);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(75, 23);
 			this->button1->TabIndex = 2;
@@ -137,7 +139,7 @@ namespace laba6 {
 			// 
 			// Exit
 			// 
-			this->Exit->Location = System::Drawing::Point(202, 25);
+			this->Exit->Location = System::Drawing::Point(202, 72);
 			this->Exit->Name = L"Exit";
 			this->Exit->Size = System::Drawing::Size(75, 23);
 			this->Exit->TabIndex = 9;
@@ -150,9 +152,9 @@ namespace laba6 {
 			this->label5->AutoSize = true;
 			this->label5->Location = System::Drawing::Point(12, 56);
 			this->label5->Name = L"label5";
-			this->label5->Size = System::Drawing::Size(98, 13);
+			this->label5->Size = System::Drawing::Size(49, 13);
 			this->label5->TabIndex = 10;
-			this->label5->Text = L"And enter elements";
+			this->label5->Text = L"Waiting..";
 			// 
 			// textBox2
 			// 
@@ -164,7 +166,7 @@ namespace laba6 {
 			// 
 			// button2
 			// 
-			this->button2->Location = System::Drawing::Point(202, 72);
+			this->button2->Location = System::Drawing::Point(121, 72);
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(75, 23);
 			this->button2->TabIndex = 12;
@@ -199,15 +201,26 @@ namespace laba6 {
 			this->label8->TabIndex = 15;
 			this->label8->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			// 
+			// button3
+			// 
+			this->button3->Location = System::Drawing::Point(202, 26);
+			this->button3->Name = L"button3";
+			this->button3->Size = System::Drawing::Size(75, 23);
+			this->button3->TabIndex = 16;
+			this->button3->Text = L"Again";
+			this->button3->UseVisualStyleBackColor = true;
+			this->button3->Click += gcnew System::EventHandler(this, &Form1::button3_Click);
+			// 
 			// Form1
 			// 
+			this->AcceptButton = this->button1;
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::None;
 			this->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
 			this->ClientSize = System::Drawing::Size(284, 242);
+			this->Controls->Add(this->button3);
 			this->Controls->Add(this->label8);
 			this->Controls->Add(this->label7);
 			this->Controls->Add(this->label6);
-			this->AcceptButton = button1;
 			this->Controls->Add(this->button2);
 			this->Controls->Add(this->textBox2);
 			this->Controls->Add(this->label5);
@@ -227,54 +240,51 @@ namespace laba6 {
 		}
 #pragma endregion
 		private:
-			static int dim=1;
-			static int f=0;
+			static int dim;
 			static int e1=0;
-		static array<int,2>^ A = gcnew array<int,2>(50,50);
+			static array<int,2>^ A = gcnew array<int,2>(50,50);
 	private: System::Void label1_Click(System::Object^  sender, System::EventArgs^  e) {
 			 }
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
-				 array<String^>^ as;
-					array<Char>^ ar;
-					ar=gcnew array<Char> (1);
-					ar[0]=' ';
-					if ((textBox2->Text->Length!=0)&&(textBox1->Text->Length!=0))
-					  {
-      dim=Convert::ToInt32(textBox1->Text);
-    label1->Text="Your dimension: "+System::Convert::ToString(dim);
-        e1=0;
-        f=0;
-        as=textBox2->Text->Split(ar);
-		for(int i=0;i<dim;i++)
-        for( int j=0;j<dim;j++)
-        {
-        A[i,j]=Convert::ToInt32(as[e1]);
-        e1++;
-        }
-		textBox2->Clear();
-		label5->Text="Nice";
+			array<String^>^ as;
+			array<Char>^ ar;
+			ar=gcnew array<Char> (1);
+			ar[0]=' ';
+			if ((textBox2->Text->Length!=0)&&(textBox1->Text->Length!=0))
+			{
+				dim=Convert::ToInt32(textBox1->Text);
+				label1->Text="Your dimension: "+System::Convert::ToString(dim);
+				as=textBox2->Text->Split(ar);
+				for(int i=0;i<Convert::ToInt32(textBox1->Text);i++)
+					for( int j=0;j<Convert::ToInt32(textBox1->Text);j++)
+					{
+						A[i,j]=Convert::ToInt32(as[e1]);
+						e1++;
 					}
-					else
-						label1->Text="Please enter dimension and row: ";
-				for(int i=0;i<dim;i++)
-				{
-				 for( int j=0;j<dim;j++)
+				textBox2->Clear();
+				label5->Text="Nice";
+				for(int i=0;i<Convert::ToInt32(textBox1->Text);i++)
+			{
+				 for( int j=0;j<Convert::ToInt32(textBox1->Text);j++)
 					label6->Text+=System::Convert::ToString(A[i,j])+" ";
 				 label6->Text += Environment::NewLine;
-				}
-				this->AcceptButton = button2;
-		 
+			}
+			this->AcceptButton = button2;
+			}
+			else
+				label1->Text="Please enter dimension and row: ";
 			 };
 private: System::Void Exit_Click(System::Object^  sender, System::EventArgs^  e) {
 			 Application::Exit();
 		 }
 private: System::Void textBox1_TextChanged(System::Object^  sender, System::EventArgs^  e) {
 	label1->Text="Your dimension: "+System::Convert::ToString(textBox1->Text);
-	label5->Text="Please input "+System::Convert::ToString(Convert::ToInt32(textBox1->Text)*Convert::ToInt32(textBox1->Text))+" elements";
+	if(textBox1->Text!="")
+		label5->Text="Please input "+System::Convert::ToString(Convert::ToInt32(textBox1->Text)*Convert::ToInt32(textBox1->Text))+" elements";
+	else
+		label5->Text="Waiting..";
 		 }
 private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
-
-			
 			 int tempMax=0;
 			 int tempMin=9999999;
 			 int tempImin, tempJmin, tempImax, tempJmax;
@@ -304,11 +314,19 @@ private: System::Void button2_Click(System::Object^  sender, System::EventArgs^ 
 			 for(int j=0;j<tempJmax;j++)
 				 ans*=A[tempImax,j];
 			 label8->Text=System::Convert::ToString(ans);
-			 this->AcceptButton = Exit;
-		 };
+			 this->AcceptButton = button3;
+			 	 };
 private: System::Void listView1_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
 		 }
 private: System::Void textBox2_TextChanged(System::Object^  sender, System::EventArgs^  e) {
+		 }
+private: System::Void button3_Click(System::Object^  sender, System::EventArgs^  e) {
+			 textBox2->Clear();
+			 textBox1->Clear();
+			 label6->Text="";
+			 label7->Text="";
+			 label8->Text="";
+			 this->AcceptButton = button1;
 		 }
 };
 }
